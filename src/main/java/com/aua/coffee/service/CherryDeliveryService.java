@@ -1,9 +1,11 @@
 package com.aua.coffee.service;
 
 import com.aua.coffee.domain.CherryDelivery;
+import com.aua.coffee.domain.DeliveryStatus;
 import com.aua.coffee.repository.CherryDeliveryRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,5 +48,13 @@ public class CherryDeliveryService {
             return "Cherry delivery deleted successfully";
         }
         return null;
+    }
+
+    public List<CherryDelivery> findByStatus(DeliveryStatus status) {
+        return cherryDeliveryRepository.findByStatusOrderByDeliveryDateAsc(status);
+    }
+
+    public List<CherryDelivery> findBetween(LocalDate start, LocalDate end) {
+        return cherryDeliveryRepository.findByDeliveryDateBetweenOrderByDeliveryDateAsc(start, end);
     }
 }

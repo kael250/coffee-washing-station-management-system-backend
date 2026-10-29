@@ -48,4 +48,8 @@ public class FarmerService {
         }
         return null;
     }
+
+    public List<Farmer> findByVillageIgnoreCase(String village) {
+        return farmerRepository.findByVillageIgnoreCaseOrderByLastNameAsc(village);
+    }
 }

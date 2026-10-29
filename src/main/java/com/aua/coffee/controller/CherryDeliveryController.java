@@ -1,6 +1,7 @@
 package com.aua.coffee.controller;
 
 import com.aua.coffee.domain.CherryDelivery;
+import com.aua.coffee.domain.DeliveryStatus;
 import com.aua.coffee.service.CherryDeliveryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,5 +66,15 @@ public class CherryDeliveryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The cherry delivery with that id does not exist");
         }
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<CherryDelivery>> byStatus(@RequestParam DeliveryStatus status) {
+        return ResponseEntity.ok(cherryDeliveryService.findByStatus(status));
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<CherryDelivery>> between(@RequestParam LocalDate start, @RequestParam LocalDate end) {
+        return ResponseEntity.ok(cherryDeliveryService.findBetween(start, end));
     }
 }

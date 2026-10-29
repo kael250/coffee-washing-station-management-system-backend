@@ -750,6 +750,100 @@
           }
         }
       ]
+    },
+    {
+      "name": "Part B - Derived Queries",
+      "item": [
+        {
+          "name": "B1 - Farmers By Village",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/farmers/by-village",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "farmers",
+                "by-village"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "village",
+                "value": "nyamasheke",
+                "description": "Village name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B2 - Cherry Deliveries By Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cherry-deliveries/by-status",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "cherry-deliveries",
+                "by-status"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "status",
+                "value": "RECEIVED",
+                "description": "Delivery status"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B3 - Cherry Deliveries Between",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cherry-deliveries/between",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "cherry-deliveries",
+                "between"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "start",
+                "value": "2026-10-01",
+                "description": "Start date (inclusive)"
+              },
+              {
+                "key": "end",
+                "value": "2026-10-31",
+                "description": "End date (inclusive)"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "variable": [
