@@ -1,5 +1,6 @@
 package com.aua.coffee.service;
 
+import com.aua.coffee.domain.Farmer;
 import com.aua.coffee.domain.Supervisor;
 import com.aua.coffee.repository.SupervisorRepository;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,13 @@ public class SupervisorService {
             return "Supervisor deleted successfully";
         }
         return null;
+    }
+
+    public List<Supervisor> findBySkillName(String name) {
+        return supervisorRepository.findBySkillName(name);
+    }
+
+    public List<Farmer> findFarmersBySupervisor(UUID supervisorId) {
+        return supervisorRepository.findFarmersBySupervisor(supervisorId);
     }
 }

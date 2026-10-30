@@ -64,4 +64,9 @@ public class DryingTableController {
         }
         return ResponseEntity.ok(message);
     }
+
+    @GetMapping("/free")
+    public ResponseEntity<List<DryingTable>> free() {
+        return ResponseEntity.ok(dryingTableService.findFree());
+    }
 }

@@ -45,4 +45,8 @@ public class DryingTableService {
         }
         return null;
     }
+
+    public List<DryingTable> findFree() {
+        return dryingTableRepository.findFree();
+    }
 }

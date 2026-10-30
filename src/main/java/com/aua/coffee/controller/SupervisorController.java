@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -63,5 +64,10 @@ public class SupervisorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The supervisor with that id does not exist");
         }
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/by-skill")
+    public ResponseEntity<List<Supervisor>> bySkill(@RequestParam String name) {
+        return ResponseEntity.ok(supervisorService.findBySkillName(name));
     }
 }

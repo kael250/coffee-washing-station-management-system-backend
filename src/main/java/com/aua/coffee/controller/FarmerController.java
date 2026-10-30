@@ -1,7 +1,9 @@
 package com.aua.coffee.controller;
 
 import com.aua.coffee.domain.Farmer;
+import com.aua.coffee.domain.Supervisor;
 import com.aua.coffee.service.FarmerService;
+import com.aua.coffee.service.SupervisorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +25,11 @@ import java.util.UUID;
 public class FarmerController {
 
     private final FarmerService farmerService;
+    private final SupervisorService supervisorService;
 
-    public FarmerController(FarmerService farmerService) {
+    public FarmerController(FarmerService farmerService, SupervisorService supervisorService) {
         this.farmerService = farmerService;
+        this.supervisorService = supervisorService;
     }
 
     @PostMapping("/save")
@@ -69,5 +73,14 @@ public class FarmerController {
     @GetMapping("/by-village")
     public ResponseEntity<List<Farmer>> byVillage(@RequestParam String village) {
         return ResponseEntity.ok(farmerService.findByVillageIgnoreCase(village));
+    }
+
+    @GetMapping("/of-supervisor/{supervisorId}")
+    public ResponseEntity<?> farmersOfSupervisor(@PathVariable UUID supervisorId) {
+        Optional<Supervisor> supervisor = supervisorService.findById(supervisorId);
+        if (supervisor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The supervisor with that id does not exist");
+        }
+        return ResponseEntity.ok(supervisorService.findFarmersBySupervisor(supervisorId));
     }
 }

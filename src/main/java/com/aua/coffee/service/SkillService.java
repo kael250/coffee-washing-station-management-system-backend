@@ -44,4 +44,8 @@ public class SkillService {
         }
         return null;
     }
+
+    public List<Skill> findUnused() {
+        return skillRepository.findUnused();
+    }
 }

@@ -844,6 +844,110 @@
           }
         }
       ]
+    },
+    {
+      "name": "Part C - JPQL with Joins",
+      "item": [
+        {
+          "name": "C1 - Supervisors By Skill",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/supervisors/by-skill",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "supervisors",
+                "by-skill"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "name",
+                "value": "sort",
+                "description": "Skill name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "C2 - Drying Tables Free",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/drying-tables/free",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "drying-tables",
+                "free"
+              ],
+              "protocol": "http"
+            }
+          }
+        },
+        {
+          "name": "C3 - Skills Unused",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/skills/unused",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "skills",
+                "unused"
+              ],
+              "protocol": "http"
+            }
+          }
+        },
+        {
+          "name": "C4 - Farmers Of Supervisor",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/farmers/of-supervisor/{supervisorId}",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "farmers",
+                "of-supervisor",
+                "{supervisorId}"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "supervisorId",
+                "value": "22222222-2222-2222-2222-222222222222",
+                "description": "Supervisor UUID"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "variable": [
