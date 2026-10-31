@@ -15,4 +15,6 @@ public interface CherryDeliveryRepository extends JpaRepository<CherryDelivery, 
     List<CherryDelivery> findByStatusOrderByDeliveryDateAsc(DeliveryStatus status);
 
     List<CherryDelivery> findByDeliveryDateBetweenOrderByDeliveryDateAsc(LocalDate start, LocalDate end);
+
+    boolean existsBySupervisorIdAndDeliveryDateAndStatusIsNot(UUID supervisorId, LocalDate deliveryDate, DeliveryStatus status);
 }

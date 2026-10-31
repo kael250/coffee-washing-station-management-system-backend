@@ -1,5 +1,6 @@
 package com.aua.coffee.repository;
 
+import com.aua.coffee.domain.DryingTable;
 import com.aua.coffee.domain.Farmer;
 import com.aua.coffee.domain.Supervisor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +27,6 @@ public interface SupervisorRepository extends JpaRepository<Supervisor, UUID> {
             WHERE c.supervisor.id = :supervisorId
             """)
     List<Farmer> findFarmersBySupervisor(@Param("supervisorId") UUID supervisorId);
+
+    List<Supervisor> findByDryingTable(DryingTable dryingTable);
 }

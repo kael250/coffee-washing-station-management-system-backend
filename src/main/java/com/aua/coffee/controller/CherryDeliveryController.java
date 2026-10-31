@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,14 @@ public class CherryDeliveryController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody CherryDelivery cherryDelivery) {
         String message = cherryDeliveryService.save(cherryDelivery);
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        HttpStatus status = HttpStatus.CREATED;
+        if (message.equals("Cherry delivery date cannot be in the past")) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        if (message.equals("Supervisor already handles a delivery on that date")) {
+            status = HttpStatus.CONFLICT;
+        }
+        return ResponseEntity.status(status).body(message);
     }
 
     @GetMapping("/all")
@@ -57,6 +65,18 @@ public class CherryDeliveryController {
             return ResponseEntity.ok(result.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The cherry delivery with that id does not exist");
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> changeStatus(@PathVariable UUID id, @RequestParam DeliveryStatus status) {
+        String message = cherryDeliveryService.changeStatus(id, status);
+        if (message.equals("The cherry delivery with that id does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+        if (message.startsWith("Cannot change status from")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
+        return ResponseEntity.ok(message);
     }
 
     @DeleteMapping("/delete/{id}")

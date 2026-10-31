@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,5 +70,29 @@ public class SupervisorController {
     @GetMapping("/by-skill")
     public ResponseEntity<List<Supervisor>> bySkill(@RequestParam String name) {
         return ResponseEntity.ok(supervisorService.findBySkillName(name));
+    }
+
+    @PatchMapping("/{supervisorId}/drying-table")
+    public ResponseEntity<?> moveToDryingTable(@PathVariable UUID supervisorId, @RequestParam Integer tableNumber) {
+        String message = supervisorService.moveToDryingTable(supervisorId, tableNumber);
+        if (message.equals("The supervisor with that id does not exist") || message.equals("The drying table with that tableNumber does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+        if (message.equals("That drying table is taken by another supervisor")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+        return ResponseEntity.ok(message);
+    }
+
+    @PutMapping("/{supervisorId}/skills/{skillId}")
+    public ResponseEntity<?> addSkill(@PathVariable UUID supervisorId, @PathVariable UUID skillId) {
+        String message = supervisorService.addSkill(supervisorId, skillId);
+        if (message.equals("The supervisor with that id does not exist") || message.equals("That skill does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+        if (message.equals("The supervisor already has that skill")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+        return ResponseEntity.ok(message);
     }
 }
