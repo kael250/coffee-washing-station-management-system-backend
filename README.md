@@ -27,6 +27,7 @@ Base URL: `http://localhost:8080`
 - Supervisors: `/api/supervisors/...`
 - Farmers: `/api/farmers/...`
 - Cherry deliveries: `/api/cherry-deliveries/...`
+- Parchment lots: `/api/parchment-lots/...`
 
 ## Postman
 Collection: `coffee-washing-station-management-system-midterm.postman_collection.json`

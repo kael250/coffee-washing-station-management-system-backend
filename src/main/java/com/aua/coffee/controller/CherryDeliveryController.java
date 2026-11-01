@@ -85,6 +85,9 @@ public class CherryDeliveryController {
         if (message == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The cherry delivery with that id does not exist");
         }
+        if (message.equals("That cherry delivery has parchment lots, delete them first")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
         return ResponseEntity.ok(message);
     }
 

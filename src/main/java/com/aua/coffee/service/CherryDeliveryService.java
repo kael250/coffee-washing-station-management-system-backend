@@ -3,6 +3,7 @@ package com.aua.coffee.service;
 import com.aua.coffee.domain.CherryDelivery;
 import com.aua.coffee.domain.DeliveryStatus;
 import com.aua.coffee.repository.CherryDeliveryRepository;
+import com.aua.coffee.repository.ParchmentLotRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +16,11 @@ import java.util.UUID;
 public class CherryDeliveryService {
 
     private final CherryDeliveryRepository cherryDeliveryRepository;
+    private final ParchmentLotRepository parchmentLotRepository;
 
-    public CherryDeliveryService(CherryDeliveryRepository cherryDeliveryRepository) {
+    public CherryDeliveryService(CherryDeliveryRepository cherryDeliveryRepository, ParchmentLotRepository parchmentLotRepository) {
         this.cherryDeliveryRepository = cherryDeliveryRepository;
+        this.parchmentLotRepository = parchmentLotRepository;
     }
 
     public String save(CherryDelivery cherryDelivery) {
@@ -55,11 +58,15 @@ public class CherryDeliveryService {
     }
 
     public String delete(UUID id) {
-        if (cherryDeliveryRepository.existsById(id)) {
-            cherryDeliveryRepository.deleteById(id);
-            return "Cherry delivery deleted successfully";
+        Optional<CherryDelivery> cherryDelivery = cherryDeliveryRepository.findById(id);
+        if (cherryDelivery.isEmpty()) {
+            return null;
         }
-        return null;
+        if (parchmentLotRepository.existsByCherryDelivery(cherryDelivery.get())) {
+            return "That cherry delivery has parchment lots, delete them first";
+        }
+        cherryDeliveryRepository.deleteById(id);
+        return "Cherry delivery deleted successfully";
     }
 
     public List<CherryDelivery> findByStatus(DeliveryStatus status) {
