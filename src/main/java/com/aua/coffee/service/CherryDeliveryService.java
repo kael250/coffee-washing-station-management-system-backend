@@ -102,4 +102,14 @@ public class CherryDeliveryService {
     public List<CherryDelivery> findBetween(LocalDate start, LocalDate end) {
         return cherryDeliveryRepository.findByDeliveryDateBetweenOrderByDeliveryDateAsc(start, end);
     }
+
+    public List<Object[]> findStatsByStatus() {
+        return cherryDeliveryRepository.findStatsByStatus();
+    }
+
+    @Transactional
+    public String cancelDay(UUID supervisorId, LocalDate date) {
+        int count = cherryDeliveryRepository.cancelDay(supervisorId, date);
+        return count + " cherry deliveries cancelled";
+    }
 }

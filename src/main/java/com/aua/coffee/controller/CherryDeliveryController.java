@@ -100,4 +100,15 @@ public class CherryDeliveryController {
     public ResponseEntity<List<CherryDelivery>> between(@RequestParam LocalDate start, @RequestParam LocalDate end) {
         return ResponseEntity.ok(cherryDeliveryService.findBetween(start, end));
     }
+
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> statsByStatus() {
+        return ResponseEntity.ok(cherryDeliveryService.findStatsByStatus());
+    }
+
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<?> cancelDay(@RequestParam UUID supervisorId, @RequestParam LocalDate date) {
+        String message = cherryDeliveryService.cancelDay(supervisorId, date);
+        return ResponseEntity.ok(message);
+    }
 }

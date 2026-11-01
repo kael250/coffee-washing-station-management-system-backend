@@ -1188,6 +1188,66 @@
           }
         }
       ]
+    },
+    {
+      "name": "Part F - Reports and Bulk",
+      "item": [
+        {
+          "name": "F1 - Cherry Deliveries Stats By Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cherry-deliveries/stats/by-status",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "cherry-deliveries",
+                "stats",
+                "by-status"
+              ],
+              "protocol": "http"
+            }
+          }
+        },
+        {
+          "name": "F2 - Cancel Day",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/cherry-deliveries/cancel-day",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "cherry-deliveries",
+                "cancel-day"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "supervisorId",
+                "value": "22222222-2222-2222-2222-222222222222",
+                "description": "Supervisor UUID"
+              },
+              {
+                "key": "date",
+                "value": "2026-10-20",
+                "description": "Date"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "variable": [
