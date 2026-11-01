@@ -3,6 +3,7 @@ package com.aua.coffee.controller;
 import com.aua.coffee.domain.CherryDelivery;
 import com.aua.coffee.domain.DeliveryStatus;
 import com.aua.coffee.service.CherryDeliveryService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -104,6 +105,11 @@ public class CherryDeliveryController {
     @GetMapping("/stats/by-status")
     public ResponseEntity<List<Object[]>> statsByStatus() {
         return ResponseEntity.ok(cherryDeliveryService.findStatsByStatus());
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CherryDelivery>> page(@RequestParam int page, @RequestParam int size, @RequestParam String sort) {
+        return ResponseEntity.ok(cherryDeliveryService.findPage(page, size, sort));
     }
 
     @PatchMapping("/cancel-day")

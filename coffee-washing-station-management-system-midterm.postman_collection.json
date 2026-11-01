@@ -1248,6 +1248,70 @@
           }
         }
       ]
+    },
+    {
+      "name": "Bonus",
+      "item": [
+        {
+          "name": "+5 - Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/summary",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ],
+              "protocol": "http"
+            }
+          }
+        },
+        {
+          "name": "+5 - Cherry Deliveries Page",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cherry-deliveries/page",
+              "host": [
+                "localhost"
+              ],
+              "port": [
+                "8080"
+              ],
+              "path": [
+                "api",
+                "cherry-deliveries",
+                "page"
+              ],
+              "protocol": "http"
+            },
+            "params": [
+              {
+                "key": "page",
+                "value": "0",
+                "description": "Page number"
+              },
+              {
+                "key": "size",
+                "value": "5",
+                "description": "Page size"
+              },
+              {
+                "key": "sort",
+                "value": "deliveryDate,desc",
+                "description": "Sort field and direction"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "variable": [

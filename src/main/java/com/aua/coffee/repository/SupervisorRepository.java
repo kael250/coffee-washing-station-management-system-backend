@@ -1,5 +1,6 @@
 package com.aua.coffee.repository;
 
+import com.aua.coffee.domain.CherryDelivery;
 import com.aua.coffee.domain.DryingTable;
 import com.aua.coffee.domain.Farmer;
 import com.aua.coffee.domain.Supervisor;

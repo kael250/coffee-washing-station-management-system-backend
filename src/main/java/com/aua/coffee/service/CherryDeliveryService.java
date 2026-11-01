@@ -4,6 +4,10 @@ import com.aua.coffee.domain.CherryDelivery;
 import com.aua.coffee.domain.DeliveryStatus;
 import com.aua.coffee.repository.CherryDeliveryRepository;
 import com.aua.coffee.repository.ParchmentLotRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,5 +115,17 @@ public class CherryDeliveryService {
     public String cancelDay(UUID supervisorId, LocalDate date) {
         int count = cherryDeliveryRepository.cancelDay(supervisorId, date);
         return count + " cherry deliveries cancelled";
+    }
+
+    public Page<CherryDelivery> findPage(int page, int size, String sort) {
+        String[] parts = sort.split(",");
+        String field = parts[0];
+        Sort.Direction direction = Sort.Direction.DESC;
+        if (parts.length > 1 && parts[1] != null && !parts[1].isEmpty()) {
+            direction = Sort.Direction.fromString(parts[1]);
+        }
+        Sort sortSpec = Sort.by(direction, field);
+        Pageable pageable = PageRequest.of(page, size, sortSpec);
+        return cherryDeliveryRepository.findAll(pageable);
     }
 }

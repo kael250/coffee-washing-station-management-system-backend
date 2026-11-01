@@ -37,4 +37,8 @@ public interface CherryDeliveryRepository extends JpaRepository<CherryDelivery, 
             AND c.status <> com.aua.coffee.domain.DeliveryStatus.DRIED
             """)
     int cancelDay(@Param("supervisorId") UUID supervisorId, @Param("date") LocalDate date);
+
+    long countByDeliveryDate(LocalDate deliveryDate);
+
+    long countByStatus(DeliveryStatus status);
 }
